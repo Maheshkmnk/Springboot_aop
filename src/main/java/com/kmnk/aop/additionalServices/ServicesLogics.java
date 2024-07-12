@@ -1,6 +1,7 @@
 package com.kmnk.aop.additionalServices;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -14,35 +15,56 @@ public class ServicesLogics {
 //    public void p1(){}
 
 
-    @Before("execution(* com.kmnk.aop.repository.*.*(..))")//Jointpoint
-    public void beginTransaction(){
-        log.info("transaction started....");
-    }
+//    @Before("execution(* com.kmnk.aop.repository.*.*(..))")//Jointpoint
+//    public void beginTransaction(JoinPoint joinPoint) {
+//        log.info("transaction started....");
+//        log.info("the signature of target method {} and args {}", joinPoint.getSignature(), joinPoint.getArgs());
+//    }
 
-    @After("execution(* com.kmnk.aop.repository.Employee.*(..))")//Jointpoint
-    public void commitTransaction(){
+    @After("within(com.kmnk.aop.repository.*)")//Jointpoint
+    public void commitTransaction(JoinPoint joinPoint) {
         log.info("transaction committed");
+        log.info("signature >> {}", joinPoint.getSignature());
+        log.info("getArgs {}", joinPoint.getArgs());
+        log.info("getThis() >> {}", joinPoint.getThis());
+        log.info("getStaticPart >> {}", joinPoint.getStaticPart());
+        log.info("getTarget >> {}", joinPoint.getTarget());
+        log.info("getKind >> {}", joinPoint.getKind());
+        log.info("getSourceLocation >> {}", joinPoint.getSourceLocation());
+        log.info("toLongString >> {}", joinPoint.toLongString());
+        log.info("toShortString >> {}", joinPoint.toShortString());
     }
 
-    @AfterReturning("execution(* com.kmnk.aop.repository.*.*(..))")
-    public void returningAdvice(){
-        log.info("successfully completed transaction..");
-    }
+//    @AfterReturning(value = "execution(* com.kmnk.aop.repository.*.*(..))", returning = "data")
+//    public void returningAdvice(Object data) {
+//        log.info("successfully completed transaction..");
+//        log.info("Data is {}", data);
+//    }
 
-    @AfterThrowing(throwing = "exception", pointcut = "execution(public void com.kmnk.aop.repository.Employee.save())")
-    public void exceptionThrowed(Throwable exception){
-        log.info("exception throwed.." + " " +exception.getMessage());
-    }
+//    @AfterThrowing(throwing = "exception", pointcut = "execution(public void com.kmnk.aop.repository.Employee.save())")
+//    public void exceptionThrowed(Throwable exception) {
+//        log.info("exception throwed.." + " " + exception.getMessage());
+//    }
 
-    @Around("within(com.kmnk.aop.repository.*)")
-    public void notification(ProceedingJoinPoint joinPoint) {
-        log.info("notification initiated for starting transaction....");
-        try {
-            joinPoint.proceed();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-        log.info("notification initiated for completing transaction..");
+//    @Around("within(com.kmnk.aop.repository.*)")
+//    public void notification(ProceedingJoinPoint joinPoint) {
+//        log.info("notification initiated for starting transaction....");
+//        try {
+//            joinPoint.proceed();
+//        } catch (Throwable e) {
+//            log.info(e.getMessage());
+//        }
+//        log.info("notification initiated for completing transaction..");
+//    }
+
+//    @After("@annotation(org.springframework.validation.annotation.Validated)")
+//    public void annotationPointcutExpression(JoinPoint joinPoint){
+//        log.info("annotationPointcutExpression executed");
+//    }
+
+    @Before("bean(Employee)")
+    public void beanPointcutExpression(JoinPoint joinPoint){
+        log.info("beanPointcutExpression executed");
     }
 
 }

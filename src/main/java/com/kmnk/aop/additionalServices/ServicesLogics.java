@@ -46,16 +46,19 @@ public class ServicesLogics {
         log.info("exception throwed.." + " " + exception.getMessage());
     }
 
-//    @Around("within(com.kmnk.aop.repository.*)")
-//    public void notification(ProceedingJoinPoint joinPoint) {
-//        log.info("notification initiated for starting transaction....");
-//        try {
-//            joinPoint.proceed();
-//        } catch (Throwable e) {
-//            log.info(e.getMessage());
-//        }
-//        log.info("notification initiated for completing transaction..");
-//    }
+    @Around("within(com.kmnk.aop.repository.*)")
+    public Object notification(ProceedingJoinPoint joinPoint) {
+        log.info("notification initiated for starting transaction....");
+        try {
+            Object proceed = joinPoint.proceed();
+            log.info("calling method {} and its arguments {} and its returning value {}", joinPoint.getSignature(), joinPoint.getArgs(), proceed);
+            return proceed;
+        } catch (Throwable e) {
+            log.info(e.getMessage());
+        }
+        log.info("notification initiated for completing transaction..");
+        return null;
+    }
 
     @After("@annotation(org.springframework.validation.annotation.Validated)")
     public void annotationPointcutExpression(JoinPoint joinPoint){

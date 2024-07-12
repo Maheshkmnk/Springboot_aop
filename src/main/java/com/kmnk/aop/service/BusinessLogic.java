@@ -14,28 +14,28 @@ import java.util.Random;
 @Slf4j
 public class BusinessLogic implements CommandLineRunner {
     @Autowired
-    private Employee employee1;
+    private Employee employee;
 
     @Override
     public void run(String... args) throws Exception {
 
         log.info("save method-----------------");
-        employee1.save(new Employee2());
+        employee.save(new Employee2());
 
-//        log.info("read method-----------------");
-//        employee.read();
-//
-//        log.info("delete method-----------------");
-//        employee.delete(1);
+        log.info("read method-----------------");
+        employee.read();
 
-//        log.info("login method-----------------");
-//        employee.login(3);
+        log.info("delete method-----------------");
+        employee.delete(1);
+
+        log.info("login method-----------------");
+        employee.login(3);
 
         log.info("sendMail method-----------------");
-        employee1.sendMail("completed", "karthik");
-//
-//        log.info("logout method-----------------");
-//        employee.logout("successfully logged out");
+        employee.sendMail("completed", "karthik");
+
+        log.info("logout method-----------------");
+        employee.logout("successfully logged out");
 
     }
 

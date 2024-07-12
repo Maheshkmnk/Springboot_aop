@@ -14,19 +14,19 @@ public class Employee {
 
     @Validated
     public void save(Employee2 emp2){
-//        if(new Random().nextInt(12) < 10){
-//            throw new RuntimeException("Dummy exception....");
-//        }
+        if(new Random().nextInt(12) < 10){
+            throw new RuntimeException("Dummy exception....");
+        }
         log.info("record saving...");
     }
     public int delete(int i){
         log.info("deleting record...");
         return i;
     }
-//    protected Employee2 uppdate(){
-//        System.out.println("updating record...");
-//        return new Employee2();
-//    }
+    protected Employee2 uppdate(){
+        System.out.println("updating record...");
+        return new Employee2();
+    }
     public String read(){
         log.info("reading the data...");
         return "Success";

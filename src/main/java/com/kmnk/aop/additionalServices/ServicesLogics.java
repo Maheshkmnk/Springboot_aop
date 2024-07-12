@@ -15,11 +15,11 @@ public class ServicesLogics {
 //    public void p1(){}
 
 
-//    @Before("execution(* com.kmnk.aop.repository.*.*(..))")//Jointpoint
-//    public void beginTransaction(JoinPoint joinPoint) {
-//        log.info("transaction started....");
-//        log.info("the signature of target method {} and args {}", joinPoint.getSignature(), joinPoint.getArgs());
-//    }
+    @Before("execution(* com.kmnk.aop.repository.*.*(..))")//Jointpoint
+    public void beginTransaction(JoinPoint joinPoint) {
+        log.info("transaction started....");
+        log.info("the signature of target method {} and args {}", joinPoint.getSignature(), joinPoint.getArgs());
+    }
 
     @After("within(com.kmnk.aop.repository.*)")//Jointpoint
     public void commitTransaction(JoinPoint joinPoint) {
@@ -35,16 +35,16 @@ public class ServicesLogics {
         log.info("toShortString >> {}", joinPoint.toShortString());
     }
 
-//    @AfterReturning(value = "execution(* com.kmnk.aop.repository.*.*(..))", returning = "data")
-//    public void returningAdvice(Object data) {
-//        log.info("successfully completed transaction..");
-//        log.info("Data is {}", data);
-//    }
+    @AfterReturning(value = "execution(* com.kmnk.aop.repository.*.*(..))", returning = "data")
+    public void returningAdvice(Object data) {
+        log.info("successfully completed transaction..");
+        log.info("Data is {}", data);
+    }
 
-//    @AfterThrowing(throwing = "exception", pointcut = "execution(public void com.kmnk.aop.repository.Employee.save())")
-//    public void exceptionThrowed(Throwable exception) {
-//        log.info("exception throwed.." + " " + exception.getMessage());
-//    }
+    @AfterThrowing(throwing = "exception", pointcut = "execution(public void com.kmnk.aop.repository.Employee.save())")
+    public void exceptionThrowed(Throwable exception) {
+        log.info("exception throwed.." + " " + exception.getMessage());
+    }
 
 //    @Around("within(com.kmnk.aop.repository.*)")
 //    public void notification(ProceedingJoinPoint joinPoint) {
@@ -57,10 +57,10 @@ public class ServicesLogics {
 //        log.info("notification initiated for completing transaction..");
 //    }
 
-//    @After("@annotation(org.springframework.validation.annotation.Validated)")
-//    public void annotationPointcutExpression(JoinPoint joinPoint){
-//        log.info("annotationPointcutExpression executed");
-//    }
+    @After("@annotation(org.springframework.validation.annotation.Validated)")
+    public void annotationPointcutExpression(JoinPoint joinPoint){
+        log.info("annotationPointcutExpression executed");
+    }
 
     @Before("bean(Employee)")
     public void beanPointcutExpression(JoinPoint joinPoint){
